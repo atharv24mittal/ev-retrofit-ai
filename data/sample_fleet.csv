@@ -1,0 +1,11 @@
+vehicle_id,vehicle_type,engine_cc,vehicle_age_years,chassis_condition,odometer_km,gearbox_type,weight_kg,wheelbase_mm,has_rust,electrical_condition,brake_condition,mileage_kmpl,target_range_km
+V001,Hatchback,1100,5,8,52000,Manual,840,2435,0,8,8,16,120
+V002,Three-Wheeler,650,4,9,35000,Manual,410,1800,0,9,9,32,80
+V003,Sedan,1600,9,4,130000,Automatic,1180,2600,1,5,5,12,100
+V004,Hatchback,800,3,9,22000,Manual,790,2380,0,10,9,19,100
+V005,SUV,2000,7,6,90000,Automatic,1490,2710,0,7,7,12,150
+V006,Van,1500,5,8,55000,Manual,1200,2700,0,8,8,13,100
+V007,Three-Wheeler,650,12,3,110000,Manual,450,1800,1,4,4,22,60
+V008,Pickup,2200,6,7,72000,Manual,1400,2980,0,7,8,11,100
+V009,Hatchback,1000,11,4,125000,Manual,820,2400,1,5,5,14,80
+V010,Sedan,1400,4,9,28000,Manual,1100,2560,0,9,9,17,120

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>RetrofitAI v2 — EV Conversion Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <nav>
+    <div class="logo">⚡ RetrofitAI <span class="v2">v2</span></div>
+    <div class="nav-right">
+      <span class="badge">ET AutoTech Hackathon 2026</span>
+      <button class="nav-tab active" onclick="showTab('single')">Single Vehicle</button>
+      <button class="nav-tab" onclick="showTab('fleet')">Fleet Mode</button>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <div class="tag-line">Physics · ML · Compliance · ROI · Carbon</div>
+    <h1>India's Smartest<br/><span class="accent">EV Retrofit Engine</span></h1>
+    <p>Upload a photo or enter specs. Get motor sizing from road-load physics,<br/>
+       battery calculations, AIS-038 compliance, ROI, and carbon impact — in seconds.</p>
+    <div class="hero-ctas">
+      <a href="#assess" class="cta-btn primary">Start Assessment ↓</a>
+      <a href="#fleet-section" class="cta-btn secondary" onclick="showTab('fleet')">Fleet Analysis →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><span>SAE J1715</span><small>Physics Engine</small></div>
+    <div class="stat"><span>AIS-038</span><small>India Compliance</small></div>
+    <div class="stat"><span>XAI</span><small>Explainable AI</small></div>
+    <div class="stat"><span>CO₂+ROI</span><small>Impact Analytics</small></div>
+  </div>
+</header>
+
+<!-- ══ SINGLE VEHICLE TAB ═════════════════════════════════════════════════════ -->
+<div id="tab-single">
+
+<!-- Image Upload -->
+<section class="upload-section" id="assess">
+  <div class="container">
+    <div class="upload-card" id="uploadCard">
+      <div class="upload-icon">📷</div>
+      <h3>Upload Vehicle Photo <span class="optional-tag">optional</span></h3>
+      <p>AI will detect vehicle type, rust, damage, and auto-fill the form below.</p>
+      <label class="upload-label" for="vehicleImage">
+        <input type="file" id="vehicleImage" accept="image/*" onchange="handleImageUpload(this)"/>
+        Choose Photo or Drag & Drop
+      </label>
+      <div id="imagePreviewWrap" class="hidden">
+        <img id="imagePreview" src="" alt="Vehicle"/>
+        <div id="imageResult" class="image-result"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Form -->
+<section class="form-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Vehicle Assessment</h2>
+      <p class="sub">Specify vehicle details. All motor & battery sizes are calculated from real engineering physics — not fixed lookup tables.</p>
+    </div>
+
+    <div class="form-grid">
+      <!-- Col 1 -->
+      <div class="form-col">
+        <div class="form-group">
+          <label>Vehicle Type</label>
+          <select id="vehicle_type">
+            <option>Hatchback</option><option>Sedan</option><option>SUV</option>
+            <option>Three-Wheeler</option><option>Pickup</option><option>Van</option>
+          </select>
+        </div>
+        <div class="form-row2">
+          <div class="form-group">
+            <label>Engine (cc)</label>
+            <input type="number" id="engine_cc" value="1000" min="50" max="5000"/>
+          </div>
+          <div class="form-group">
+            <label>Mileage (km/l)</label>
+            <input type="number" id="mileage_kmpl" value="15" min="3" max="50" step="0.5"/>
+          </div>
+        </div>
+        <div class="form-row2">
+          <div class="form-group">
+            <label>Age (years)</label>
+            <input type="number" id="vehicle_age_years" value="5" min="0" max="30"/>
+          </div>
+          <div class="form-group">
+            <label>Odometer (km)</label>
+            <input type="number" id="odometer_km" value="50000" min="0" max="500000"/>
+          </div>
+        </div>
+        <div class="form-row2">
+          <div class="form-group">
+            <label>Weight (kg)</label>
+            <input type="number" id="weight_kg" value="900" min="100" max="5000"/>
+          </div>
+          <div class="form-group">
+            <label>Wheelbase (mm)</label>
+            <input type="number" id="wheelbase_mm" value="2400" min="1000" max="4000"/>
+          </div>
+        </div>
+        <div class="form-row2">
+          <div class="form-group">
+            <label>Gearbox</label>
+            <select id="gearbox_type"><option>Manual</option><option>Automatic</option></select>
+          </div>
+          <div class="form-group">
+            <label>Annual Driving (km)</label>
+            <input type="number" id="annual_km" value="15000" min="1000" max="100000" step="1000"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="form-col">
+        <div class="form-group slider-group">
+          <label>Chassis Condition <span id="chassis_val" class="val-badge">7</span>/10</label>
+          <input type="range" id="chassis_condition" min="1" max="10" value="7"
+                 oninput="document.getElementById('chassis_val').textContent=this.value"/>
+          <div class="slider-desc" id="chassis_desc">Good — suitable for battery mounting</div>
+        </div>
+        <div class="form-group slider-group">
+          <label>Electrical Condition <span id="elec_val" class="val-badge">7</span>/10</label>
+          <input type="range" id="electrical_condition" min="1" max="10" value="7"
+                 oninput="document.getElementById('elec_val').textContent=this.value"/>
+        </div>
+        <div class="form-group slider-group">
+          <label>Brake Condition <span id="brake_val" class="val-badge">7</span>/10</label>
+          <input type="range" id="brake_condition" min="1" max="10" value="7"
+                 oninput="document.getElementById('brake_val').textContent=this.value"/>
+        </div>
+        <div class="form-group slider-group">
+          <label>Target EV Range <span id="range_val" class="val-badge">100</span> km</label>
+          <input type="range" id="target_range_km" min="30" max="300" value="100" step="10"
+                 oninput="document.getElementById('range_val').textContent=this.value"/>
+        </div>
+        <div class="form-group">
+          <label>Chassis Rust</label>
+          <div class="toggle-row">
+            <label class="toggle">
+              <input type="checkbox" id="has_rust"/>
+              <span class="slider-toggle"></span>
+            </label>
+            <span id="rust_label">No Rust Detected</span>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="assess-btn" onclick="runAssessment()">🔍 Analyse Vehicle</button>
+          <button class="sample-btn" onclick="loadSample()">Load Sample</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section id="results" class="results-section hidden">
+  <div class="container">
+
+    <!-- Score + Explanation -->
+    <div class="score-card" id="scoreCard">
+      <div class="score-left">
+        <div class="score-ring">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="52" class="ring-bg"/>
+            <circle cx="60" cy="60" r="52" class="ring-fill" id="ringFill"/>
+          </svg>
+          <div class="score-num" id="scoreNum">—</div>
+        </div>
+        <div class="score-meta">
+          <div class="score-grade" id="scoreGrade">—</div>
+          <div class="score-verdict" id="scoreVerdict">—</div>
+          <div class="score-confidence" id="scoreConf"></div>
+        </div>
+      </div>
+      <div class="score-right">
+        <h3>AI Assessment Complete</h3>
+        <p id="aiExplanation" class="ai-explanation">—</p>
+        <div class="score-actions">
+          <button class="pdf-btn" onclick="downloadReport()">📄 PDF Report</button>
+          <button class="wiring-btn" onclick="showWiring()">⚡ Wiring Diagram</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result tabs -->
+    <div class="result-tabs">
+      <button class="rtab active" onclick="showResultTab('physics')">⚙️ Physics</button>
+      <button class="rtab" onclick="showResultTab('battery')">🔋 Battery</button>
+      <button class="rtab" onclick="showResultTab('roi')">💰 ROI</button>
+      <button class="rtab" onclick="showResultTab('carbon')">🌿 Carbon</button>
+      <button class="rtab" onclick="showResultTab('compliance')">📋 Compliance</button>
+      <button class="rtab" onclick="showResultTab('xai')">🧠 Explain AI</button>
+    </div>
+
+    <!-- Physics tab -->
+    <div class="rtab-content active" id="rtab-physics">
+      <div class="panels">
+        <div class="panel">
+          <div class="panel-icon">🚗</div>
+          <h3>Road Load Analysis <span class="method-tag">SAE J1715</span></h3>
+          <div class="panel-body" id="physicsForces"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">⚡</div>
+          <h3>Power Requirements</h3>
+          <div class="panel-body" id="physicsPower"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">🔧</div>
+          <h3>Motor Specification</h3>
+          <div class="panel-body" id="physicsMotor"></div>
+        </div>
+      </div>
+      <div class="physics-note">
+        <strong>Why this motor size?</strong> — Calculated from: Rolling resistance + Aerodynamic drag at top speed + Grade climbing force at <span id="gradeVal">12</span>% slope. Peak power × 1.2 safety margin ÷ 0.85 drivetrain efficiency = required motor kW. Formula: <em>P = F·v / η</em>
+      </div>
+    </div>
+
+    <!-- Battery tab -->
+    <div class="rtab-content" id="rtab-battery">
+      <div class="panels">
+        <div class="panel">
+          <div class="panel-icon">🔋</div>
+          <h3>Pack Specification</h3>
+          <div class="panel-body" id="batterySpec"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">📍</div>
+          <h3>Placement Strategy</h3>
+          <div class="panel-body" id="batteryPlacement"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">🔌</div>
+          <h3>Charging</h3>
+          <div class="panel-body" id="batteryCharging"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI tab -->
+    <div class="rtab-content" id="rtab-roi">
+      <div class="roi-hero">
+        <div class="roi-stat"><span id="roiSaving">—</span><small>Annual Savings</small></div>
+        <div class="roi-stat"><span id="roiBreakeven">—</span><small>Breakeven</small></div>
+        <div class="roi-stat"><span id="roi10yr">—</span><small>10-Year Net Gain</small></div>
+      </div>
+      <div class="panels">
+        <div class="panel">
+          <div class="panel-icon">⛽</div>
+          <h3>Running Cost Comparison</h3>
+          <div class="panel-body" id="roiCost"></div>
+        </div>
+        <div class="panel" style="grid-column:span 2">
+          <div class="panel-icon">📈</div>
+          <h3>10-Year Cumulative Net Return</h3>
+          <div class="cashflow-chart" id="cashflowChart"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carbon tab -->
+    <div class="rtab-content" id="rtab-carbon">
+      <div class="carbon-hero">
+        <div class="carbon-globe">🌍</div>
+        <div class="carbon-stats">
+          <div class="c-stat"><span id="co2Saved">—</span><small>kg CO₂ avoided / year</small></div>
+          <div class="c-stat"><span id="treesEq">—</span><small>trees equivalent / year</small></div>
+          <div class="c-stat"><span id="lifetimeCo2">—</span><small>tonnes CO₂ over 10 years</small></div>
+        </div>
+      </div>
+      <div class="panels">
+        <div class="panel">
+          <div class="panel-icon">🏭</div>
+          <h3>Emissions Comparison</h3>
+          <div class="panel-body" id="carbonDetail"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-icon">📊</div>
+          <h3>CO₂ Saved — Year by Year</h3>
+          <div class="cashflow-chart" id="carbonChart"></div>
+        </div>
+      </div>
+      <div class="carbon-note">Data sources: IPCC AR6 (petrol: 2.31 kg CO₂/litre) | CEA India Grid 2024 (0.716 kg CO₂/kWh)</div>
+    </div>
+
+    <!-- Compliance tab -->
+    <div class="rtab-content" id="rtab-compliance">
+      <div id="complianceOverall" class="compliance-overall"></div>
+      <div class="compliance-table" id="complianceTable"></div>
+      <div class="compliance-docs" id="complianceDocs"></div>
+    </div>
+
+    <!-- XAI tab -->
+    <div class="rtab-content" id="rtab-xai">
+      <div class="xai-grid">
+        <div class="xai-left">
+          <h3>Feature Contributions <span class="method-tag">Permutation Analysis</span></h3>
+          <p class="xai-sub">How much each input moved the score from the baseline.</p>
+          <div id="featureChart"></div>
+          <div class="improvements-box" id="improvementsBox"></div>
+        </div>
+        <div class="xai-right">
+          <h3>🤖 AI Copilot</h3>
+          <p class="xai-sub">Ask why. Get engineering-backed answers.</p>
+          <div class="copilot-box">
+            <div class="copilot-messages" id="copilotMessages">
+              <div class="copilot-hint">
+                Try: <em>"Why did you choose this motor?"</em> or
+                <em>"What is the breakeven period?"</em> or
+                <em>"Why was my vehicle not recommended?"</em>
+              </div>
+            </div>
+            <div class="copilot-input-row">
+              <input type="text" id="copilotInput" placeholder="Ask about the assessment…"
+                     onkeydown="if(event.key==='Enter') sendCopilot()"/>
+              <button onclick="sendCopilot()">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wiring diagram modal -->
+    <div id="wiringModal" class="modal hidden">
+      <div class="modal-inner">
+        <div class="modal-header">
+          <h3>⚡ Wiring Harness Diagram <span class="method-tag">AIS-038 Layout</span></h3>
+          <button class="modal-close" onclick="closeWiring()">✕</button>
+        </div>
+        <div id="wiringSvgContainer"></div>
+        <p class="modal-note">Battery → BMS → Controller → Motor | Charger → BMS | DC-DC converter for 12V accessories | Safety interlock loop compliant with AIS-038 §5.4</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div><!-- /tab-single -->
+
+<!-- ══ FLEET TAB ═══════════════════════════════════════════════════════════════ -->
+<div id="tab-fleet" class="hidden">
+<section class="fleet-section" id="fleet-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Fleet Analysis Mode</h2>
+      <p class="sub">Upload a CSV of multiple vehicles. RetrofitAI scores every vehicle, ranks candidates, and calculates total fleet ROI and carbon impact.</p>
+    </div>
+
+    <div class="fleet-upload-area">
+      <div class="fleet-drop" id="fleetDrop">
+        <div class="fleet-drop-icon">📂</div>
+        <h3>Upload Fleet CSV</h3>
+        <p>Required columns: vehicle_id, vehicle_type, engine_cc, vehicle_age_years,<br/>
+           chassis_condition, odometer_km, gearbox_type, weight_kg, wheelbase_mm,<br/>
+           has_rust, electrical_condition, brake_condition, mileage_kmpl</p>
+        <label class="upload-label" for="fleetFile">
+          <input type="file" id="fleetFile" accept=".csv" onchange="handleFleetUpload(this)"/>
+          Choose CSV File
+        </label>
+        <button class="sample-btn" style="margin-top:1rem" onclick="downloadSampleCSV()">⬇ Download Sample CSV</button>
+      </div>
+    </div>
+
+    <div id="fleetResults" class="hidden">
+      <!-- Summary cards -->
+      <div class="fleet-summary" id="fleetSummary"></div>
+      <!-- Ranked table -->
+      <div class="fleet-table-wrap">
+        <h3>Vehicle Ranking <span class="method-tag">Sorted by Feasibility Score</span></h3>
+        <div class="fleet-table" id="fleetTable"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /tab-fleet -->
+
+<!-- Loader -->
+<div id="loader" class="loader hidden">
+  <div class="loader-inner">
+    <div class="spin"></div>
+    <p id="loaderText">Analysing…</p>
+  </div>
+</div>
+
+<footer>
+  <p>RetrofitAI v2 &copy; 2026 | ET AutoTech Hackathon | Physics: SAE J1715 · IS 14665 | Compliance: AIS-038 · AIS-156 · CMVR | Carbon: IPCC AR6 · CEA 2024</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
