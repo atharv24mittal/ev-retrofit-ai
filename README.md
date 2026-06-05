@@ -1,7 +1,19 @@
 # ⚡ RetrofitAI — AI-Powered EV Conversion Intelligence System
 
 > ET AutoTech Hackathon 2026 | Theme 2: AI for EV Retrofit & Conversion Ecosystem
+<img width="910" height="452" alt="image" src="https://github.com/user-attachments/assets/c32eaa3b-63ae-47cc-a91a-4ebdd455c77e" />
 <img width="377" height="305" alt="Screenshot 2026-06-05 121423" src="https://github.com/user-attachments/assets/371cc85a-cc11-4a76-9b12-4decab6c1d16" />
+<img width="678" height="340" alt="Screenshot 2026-06-05 121450" src="https://github.com/user-attachments/assets/756d98f9-691b-4141-b342-2374c7c57928" />
+<img width="649" height="448" alt="Screenshot 2026-06-05 121506" src="https://github.com/user-attachments/assets/526dab37-ce5e-424d-8dec-d34925fbe1a7" />
+<img width="529" height="377" alt="Screenshot 2026-06-05 121522" src="https://github.com/user-attachments/assets/1d6b0b20-be0e-486f-bf35-eee29f1c22a4" />
+<img width="646" height="287" alt="Screenshot 2026-06-05 121606" src="https://github.com/user-attachments/assets/3fd6d179-52d2-4c23-8b17-8d901123b33d" />
+<img width="635" height="355" alt="Screenshot 2026-06-05 121620" src="https://github.com/user-attachments/assets/435134e5-6502-4c71-9a1d-d58b9faca079" />
+<img width="642" height="393" alt="Screenshot 2026-06-05 121634" src="https://github.com/user-attachments/assets/53d43f0a-8a7e-48a7-a070-de37cc18a21d" />
+<img width="646" height="455" alt="Screenshot 2026-06-05 121648" src="https://github.com/user-attachments/assets/44ec0585-a3b4-464d-9749-3d2f06a90d00" />
+<img width="647" height="307" alt="Screenshot 2026-06-05 121900" src="https://github.com/user-attachments/assets/efac22ee-ac3d-4afb-baaa-feea67298d1c" />
+<img width="559" height="412" alt="image" src="https://github.com/user-attachments/assets/93ef37bd-df19-405a-b295-a5a9e9789d3d" />
+
+
 
 ---
 
