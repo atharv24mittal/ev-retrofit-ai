@@ -1,6 +1,7 @@
 # ⚡ RetrofitAI — AI-Powered EV Conversion Intelligence System
 
 > ET AutoTech Hackathon 2026 | Theme 2: AI for EV Retrofit & Conversion Ecosystem
+<img width="377" height="305" alt="Screenshot 2026-06-05 121423" src="https://github.com/user-attachments/assets/371cc85a-cc11-4a76-9b12-4decab6c1d16" />
 
 ---
 
